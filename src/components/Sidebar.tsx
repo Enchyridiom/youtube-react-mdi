@@ -19,58 +19,66 @@ export function Sidebar({ isOpen = true, currentPage = 'home' }: SidebarProps) {
   return (
     <>
       {/* Sidebar para desktop */}
-      <aside className={`fixed top-14 left-0 bottom-0 w-56 bg-[#0f0f0f] border-r border-[#272727] overflow-y-auto transition-transform duration-300 z-40 hidden lg:block ${!isOpen ? '-translate-x-full' : ''}`}>
-        <nav className="py-2">
+      <nav className={`fixed top-14 left-0 bottom-0 w-56 bg-[#0f0f0f] border-r border-[#272727] overflow-y-auto transition-transform duration-300 z-40 hidden lg:block ${!isOpen ? '-translate-x-full' : ''}`} aria-label="Navegación principal">
+        <ul className="py-2">
           {navItems.map((item, index) => (
-            <a
-              key={index}
-              href="#"
-              className={`flex items-center gap-4 px-4 py-2.5 hover:bg-[#272727] transition-colors ${
-                item.active ? 'bg-[#272727]' : ''
-              }`}
-            >
-              <item.icon className={`w-5 h-5 ${item.active ? 'text-white' : 'text-[#aaa]'}`} />
-              <span className={item.active ? 'text-white' : 'text-[#aaa]'}>{item.label}</span>
-            </a>
+            <li key={index}>
+              <a
+                href="#"
+                className={`flex items-center gap-4 px-4 py-2.5 hover:bg-[#272727] transition-colors ${
+                  item.active ? 'bg-[#272727]' : ''
+                }`}
+                aria-current={item.active ? "page" : undefined}
+              >
+                <item.icon className={`w-5 h-5 ${item.active ? 'text-white' : 'text-[#aaa]'}`} aria-hidden="true" />
+                <span className={item.active ? 'text-white' : 'text-[#aaa]'}>{item.label}</span>
+              </a>
+            </li>
           ))}
-        </nav>
+        </ul>
 
         <div className="border-t border-[#272727] my-2"></div>
 
-        <div className="px-4 py-2">
-          <h3 className="text-[#aaa] mb-2">Suscripciones</h3>
-          {[1, 2, 3, 4].map((i) => (
-            <a
-              key={i}
-              href="#"
-              className="flex items-center gap-3 px-2 py-2 hover:bg-[#272727] rounded-lg transition-colors"
-            >
-              <div className="w-6 h-6 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full"></div>
-              <span className="text-[#aaa]">Canal {i}</span>
-            </a>
-          ))}
-        </div>
-      </aside>
+        <section className="px-4 py-2" aria-labelledby="subscriptions-heading">
+          <h2 id="subscriptions-heading" className="text-[#aaa] mb-2 text-sm font-semibold">Suscripciones</h2>
+          <ul>
+            {[1, 2, 3, 4].map((i) => (
+              <li key={i}>
+                <a
+                  href="#"
+                  className="flex items-center gap-3 px-2 py-2 hover:bg-[#272727] rounded-lg transition-colors"
+                >
+                  <div className="w-6 h-6 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full" aria-hidden="true"></div>
+                  <span className="text-[#aaa]">Canal {i}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </nav>
 
       {/* Sidebar compacto para mobile/tablet */}
-      <aside className="fixed top-14 left-0 bottom-0 w-20 bg-[#0f0f0f] border-r border-[#272727] overflow-y-auto z-40 lg:hidden">
-        <nav className="py-2">
+      <nav className="fixed top-14 left-0 bottom-0 w-20 bg-[#0f0f0f] border-r border-[#272727] overflow-y-auto z-40 lg:hidden" aria-label="Navegación principal compacta">
+        <ul className="py-2">
           {navItems.map((item, index) => (
-            <a
-              key={index}
-              href="#"
-              className={`flex flex-col items-center gap-1 px-2 py-3 hover:bg-[#272727] transition-colors ${
-                item.active ? 'bg-[#272727]' : ''
-              }`}
-            >
-              <item.icon className={`w-6 h-6 ${item.active ? 'text-white' : 'text-[#aaa]'}`} />
-              <span className={`text-xs ${item.active ? 'text-white' : 'text-[#aaa]'}`}>
-                {item.label}
-              </span>
-            </a>
+            <li key={index}>
+              <a
+                href="#"
+                className={`flex flex-col items-center gap-1 px-2 py-3 hover:bg-[#272727] transition-colors ${
+                  item.active ? 'bg-[#272727]' : ''
+                }`}
+                aria-current={item.active ? "page" : undefined}
+                aria-label={item.label}
+              >
+                <item.icon className={`w-6 h-6 ${item.active ? 'text-white' : 'text-[#aaa]'}`} aria-hidden="true" />
+                <span className={`text-xs ${item.active ? 'text-white' : 'text-[#aaa]'}`}>
+                  {item.label}
+                </span>
+              </a>
+            </li>
           ))}
-        </nav>
-      </aside>
+        </ul>
+      </nav>
     </>
   );
 }

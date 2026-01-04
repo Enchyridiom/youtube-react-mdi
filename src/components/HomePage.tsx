@@ -126,43 +126,51 @@ export default function HomePage({ onVideoClick }: HomePageProps) {
       <div className="flex-1">
         <Header />
 
-        <div className="pt-14 pl-20 lg:pl-56">
+        <main className="pt-14 pl-20 lg:pl-56">
           <div className="p-6">
             {/* Chips de categorías */}
-            <div className="flex gap-3 mb-6 overflow-x-auto pb-2 scrollbar-hide">
-              {['Todo', 'Música', 'Gaming', 'Noticias', 'En vivo', 'Tecnología', 'Cocina', 'Fitness'].map(
-                (category, index) => (
-                  <button
-                    key={index}
-                    className={`px-4 py-1.5 rounded-lg whitespace-nowrap transition-colors ${
-                      index === 0
-                        ? 'bg-white text-black'
-                        : 'bg-[#272727] text-white hover:bg-[#3f3f3f]'
-                    }`}
-                  >
-                    {category}
-                  </button>
-                )
-              )}
-            </div>
+            <section className="mb-6" aria-labelledby="categories-heading">
+              <h2 id="categories-heading" className="sr-only">Filtrar por categoría</h2>
+              <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide" role="tablist" aria-label="Categorías de videos">
+                {['Todo', 'Música', 'Gaming', 'Noticias', 'En vivo', 'Tecnología', 'Cocina', 'Fitness'].map(
+                  (category, index) => (
+                    <button
+                      key={index}
+                      className={`px-4 py-1.5 rounded-lg whitespace-nowrap transition-colors ${
+                        index === 0
+                          ? 'bg-white text-black'
+                          : 'bg-[#272727] text-white hover:bg-[#3f3f3f]'
+                      }`}
+                      role="tab"
+                      aria-selected={index === 0}
+                    >
+                      {category}
+                    </button>
+                  )
+                )}
+              </div>
+            </section>
 
             {/* Grid de videos */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-              {videos.map((video) => (
-                <VideoCard
-                  key={video.id}
-                  thumbnail={video.thumbnail}
-                  title={video.title}
-                  channel={video.channel}
-                  views={video.views}
-                  duration={video.duration}
-                  uploadTime={video.uploadTime}
-                  onVideoClick={onVideoClick}
-                />
-              ))}
-            </div>
+            <section aria-labelledby="videos-heading">
+              <h2 id="videos-heading" className="sr-only">Videos recomendados</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                {videos.map((video) => (
+                  <VideoCard
+                    key={video.id}
+                    thumbnail={video.thumbnail}
+                    title={video.title}
+                    channel={video.channel}
+                    views={video.views}
+                    duration={video.duration}
+                    uploadTime={video.uploadTime}
+                    onVideoClick={onVideoClick}
+                  />
+                ))}
+              </div>
+            </section>
           </div>
-        </div>
+        </main>
       </div>
     </div>
   );

@@ -69,10 +69,10 @@ export function VideoPlayerPage({ videoId, onVideoClick }: VideoPlayerPageProps)
     <>
       <Header />
       <Sidebar />
-      <div className="pt-14 pl-20 lg:pl-56">
+      <main className="pt-14 pl-20 lg:pl-56">
         <div className="flex flex-col lg:flex-row gap-6 p-6">
         {/* Columna principal del video */}
-        <div className="flex-1 min-w-0">
+        <article className="flex-1 min-w-0">
           {/* Video player */}
           <div className="relative aspect-video bg-black rounded-xl overflow-hidden mb-4">
             <ImageWithFallback
@@ -181,36 +181,37 @@ export function VideoPlayerPage({ videoId, onVideoClick }: VideoPlayerPageProps)
 
           {/* Sección de comentarios */}
           <CommentSection commentCount="1,234" />
-        </div>
+        </article>
 
         {/* Columna lateral de videos relacionados */}
-        <div className="w-full lg:w-[400px] xl:w-[450px] space-y-3">
+        <aside className="w-full lg:w-[400px] xl:w-[450px] space-y-3" aria-labelledby="related-videos-heading">
+          <h2 id="related-videos-heading" className="sr-only">Videos relacionados</h2>
           {relatedVideos.map((video) => (
-            <div key={video.id} className="flex gap-2 cursor-pointer group" onClick={onVideoClick}>
+            <article key={video.id} className="flex gap-2 cursor-pointer group" onClick={onVideoClick}>
               <div className="relative w-40 aspect-video bg-[#181818] rounded-lg overflow-hidden flex-shrink-0">
                 <ImageWithFallback
                   src={video.thumbnail}
                   alt={video.title}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
-                <div className="absolute bottom-1 right-1 bg-black/80 px-1 py-0.5 rounded text-white text-xs">
+                <div className="absolute bottom-1 right-1 bg-black/80 px-1 py-0.5 rounded text-white text-xs" aria-label={`Duración: ${video.duration}`}>
                   {video.duration}
                 </div>
               </div>
               <div className="flex-1 min-w-0">
-                <h4 className="text-white text-sm line-clamp-2 mb-1 group-hover:text-[#aaa] transition-colors">
+                <h3 className="text-white text-sm line-clamp-2 mb-1 group-hover:text-[#aaa] transition-colors">
                   {video.title}
-                </h4>
+                </h3>
                 <p className="text-[#aaa] text-xs">{video.channel}</p>
                 <div className="text-[#aaa] text-xs">
                   {video.views} • {video.uploadTime}
                 </div>
               </div>
-            </div>
+            </article>
           ))}
+        </aside>
         </div>
-        </div>
-      </div>
+      </main>
     </>
   );
 }

@@ -44,12 +44,12 @@ export function CommentSection({ commentCount }: CommentSectionProps) {
   ];
 
   return (
-    <div className="mt-6">
+    <section className="mt-6" aria-labelledby="comments-heading">
       <div className="mb-6">
-        <h3 className="text-white mb-4">{commentCount} comentarios</h3>
+        <h3 id="comments-heading" className="text-white mb-4">{commentCount} comentarios</h3>
         
         {/* Añadir comentario */}
-        <div className="flex gap-4">
+        <form className="flex gap-4">
           <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
             <ImageWithFallback
               src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&h=100&fit=crop"
@@ -62,23 +62,24 @@ export function CommentSection({ commentCount }: CommentSectionProps) {
               type="text"
               placeholder="Añade un comentario..."
               className="w-full bg-transparent border-b border-[#303030] pb-2 text-white placeholder-[#aaa] outline-none focus:border-white transition-colors"
+              aria-label="Escribe un comentario"
             />
             <div className="flex justify-end gap-2 mt-3">
-              <button className="px-4 py-2 text-[#aaa] hover:bg-[#272727] rounded-full transition-colors">
+              <button type="button" className="px-4 py-2 text-[#aaa] hover:bg-[#272727] rounded-full transition-colors">
                 Cancelar
               </button>
-              <button className="px-4 py-2 bg-[#ff0000] text-white rounded-full hover:bg-[#cc0000] transition-colors">
+              <button type="submit" className="px-4 py-2 bg-[#ff0000] text-white rounded-full hover:bg-[#cc0000] transition-colors">
                 Comentar
               </button>
             </div>
           </div>
-        </div>
+        </form>
       </div>
 
       {/* Lista de comentarios */}
-      <div className="space-y-6">
+      <ul className="space-y-6">
         {comments.map((comment) => (
-          <div key={comment.id} className="flex gap-4">
+          <li key={comment.id} className="flex gap-4">
             <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
               <ImageWithFallback
                 src={comment.avatar}
@@ -93,11 +94,11 @@ export function CommentSection({ commentCount }: CommentSectionProps) {
               </div>
               <p className="text-white mb-2">{comment.text}</p>
               <div className="flex items-center gap-4">
-                <button className="flex items-center gap-2 text-[#aaa] hover:text-white transition-colors">
+                <button className="flex items-center gap-2 text-[#aaa] hover:text-white transition-colors" aria-label={`${comment.likes} me gusta`}>
                   <ThumbsUp className="w-4 h-4" />
                   <span className="text-sm">{comment.likes}</span>
                 </button>
-                <button className="text-[#aaa] hover:text-white transition-colors">
+                <button className="text-[#aaa] hover:text-white transition-colors" aria-label="No me gusta">
                   <ThumbsDown className="w-4 h-4" />
                 </button>
                 <button className="text-[#aaa] hover:text-white transition-colors text-sm">
@@ -105,9 +106,9 @@ export function CommentSection({ commentCount }: CommentSectionProps) {
                 </button>
               </div>
             </div>
-          </div>
+          </li>
         ))}
-      </div>
-    </div>
+      </ul>
+    </section>
   );
 }
