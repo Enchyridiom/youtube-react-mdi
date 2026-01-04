@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback'
 
 interface VideoCardProps {
+  id: number;
   thumbnail: string;
   title: string;
   channel: string;
@@ -14,6 +15,7 @@ interface VideoCardProps {
 }
 
 export function VideoCard({
+  id,
   thumbnail,
   title,
   channel,
@@ -25,7 +27,7 @@ export function VideoCard({
   const router = useRouter();
   const handleClick = () => {
     if (onVideoClick) onVideoClick();
-    router.push('/video/1');
+    router.push(`/video/${id}`);
   };
 
   return (
@@ -46,9 +48,11 @@ export function VideoCard({
       <div className="flex gap-3">
         <div className="w-9 h-9 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex-shrink-0" aria-hidden="true"></div>
         <div className="flex-1 min-w-0">
-          <h3 className="text-white line-clamp-2 mb-1 group-hover:text-[#aaa] transition-colors">
-            {title}
-          </h3>
+          <a href="#" onClick={(e) => { e.preventDefault(); handleClick(); }}>
+            <h3 className="text-white line-clamp-2 mb-1 font-bold group-hover:text-[#aaa] transition-colors">
+              {title}
+            </h3>
+          </a>
           <p className="text-[#aaa] text-sm" aria-label={`Canal: ${channel}`}>{channel}</p>
           <div className="text-[#aaa] text-sm">
             <span aria-label={`Visualizaciones: ${views}`}>{views}</span> • <span aria-label={`Subido: ${uploadTime}`}>{uploadTime}</span>

@@ -1,6 +1,8 @@
 "use client";
 import Link from 'next/link';
-import { Search, Bell, Menu, Video } from 'lucide-react';
+import { Search, Bell, Menu, Sun, Moon } from 'lucide-react';
+import { useTheme } from 'next-themes';
+import { useEffect, useState } from 'react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 
 interface HeaderProps {
@@ -8,6 +10,12 @@ interface HeaderProps {
 }
 
 export function Header({ onMenuClick }: HeaderProps) {
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   return (
     <header className="fixed top-0 left-0 right-0 h-14 bg-[#0f0f0f] border-b border-[#272727] z-50 flex items-center px-4 gap-4" role="banner">
       <nav className="flex items-center gap-4">
@@ -47,6 +55,19 @@ export function Header({ onMenuClick }: HeaderProps) {
 
       {/* Iconos de usuario */}
       <div className="flex items-center gap-2" role="navigation" aria-label="Controles de usuario">
+        {mounted && (
+          <button 
+            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+            className="p-2 hover:bg-[#272727] rounded-full transition-colors"
+            aria-label={`Cambiar a modo ${theme === 'dark' ? 'claro' : 'oscuro'}`}
+          >
+            {theme === 'dark' ? (
+              <Sun className="w-6 h-6 text-white" />
+            ) : (
+              <Moon className="w-6 h-6 text-white" />
+            )}
+          </button>
+        )}
         <button className="p-2 hover:bg-[#272727] rounded-full transition-colors relative" aria-label="Notificaciones">
           <Bell className="w-6 h-6 text-white" />
           <span className="absolute top-1 right-1 w-2 h-2 bg-[#ff0000] rounded-full" aria-hidden="true"></span>

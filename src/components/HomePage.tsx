@@ -158,6 +158,7 @@ export default function HomePage({ onVideoClick }: HomePageProps) {
                 {videos.map((video) => (
                   <VideoCard
                     key={video.id}
+                    id={video.id}
                     thumbnail={video.thumbnail}
                     title={video.title}
                     channel={video.channel}

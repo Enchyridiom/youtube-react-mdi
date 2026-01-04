@@ -1,6 +1,6 @@
 "use client";
 
-import { Home, TrendingUp, Users, Library, History } from 'lucide-react';
+import { Home, TrendingUp, Users, Library, History, Settings, HelpCircle } from 'lucide-react';
 
 interface SidebarProps {
   isOpen?: boolean;
@@ -19,7 +19,7 @@ export function Sidebar({ isOpen = true, currentPage = 'home' }: SidebarProps) {
   return (
     <>
       {/* Sidebar para desktop */}
-      <nav className={`fixed top-14 left-0 bottom-0 w-56 bg-[#0f0f0f] border-r border-[#272727] overflow-y-auto transition-transform duration-300 z-40 hidden lg:block ${!isOpen ? '-translate-x-full' : ''}`} aria-label="Navegación principal">
+      <nav className={`fixed top-14 left-0 bottom-0 w-56 bg-[#0f0f0f] border-r border-[#272727] overflow-y-auto transition-transform duration-300 z-40 hidden lg:block pb-36 ${!isOpen ? '-translate-x-full' : ''}`} aria-label="Navegación principal">
         <ul className="py-2">
           {navItems.map((item, index) => (
             <li key={index}>
@@ -55,11 +55,38 @@ export function Sidebar({ isOpen = true, currentPage = 'home' }: SidebarProps) {
             ))}
           </ul>
         </section>
+
+        {/* Footer del sidebar */}
+        <footer className="absolute bottom-0 left-0 right-0 border-t border-[#272727] bg-[#0f0f0f]">
+          <div className="px-4 py-3 flex flex-col gap-2">
+            <div className="flex gap-3 justify-start">
+              <a
+                href="#"
+                className="flex items-center gap-2 text-xs text-[#aaa] hover:text-white transition-colors"
+                title="Configuración"
+              >
+                <Settings className="w-4 h-4" />
+                <span>Configuración</span>
+              </a>
+              <a
+                href="#"
+                className="flex items-center gap-2 text-xs text-[#aaa] hover:text-white transition-colors"
+                title="Ayuda"
+              >
+                <HelpCircle className="w-4 h-4" />
+                <span>Ayuda</span>
+              </a>
+            </div>
+            <div className="text-[10px] text-[#666] border-t border-[#272727] pt-2">
+              <p>© 2026 YouTube Clone</p>
+            </div>
+          </div>
+        </footer>
       </nav>
 
       {/* Sidebar compacto para mobile/tablet */}
-      <nav className="fixed top-14 left-0 bottom-0 w-20 bg-[#0f0f0f] border-r border-[#272727] overflow-y-auto z-40 lg:hidden" aria-label="Navegación principal compacta">
-        <ul className="py-2">
+      <nav className="fixed top-14 left-0 bottom-0 w-20 bg-[#0f0f0f] border-r border-[#272727] overflow-y-auto z-40 lg:hidden pb-24 flex flex-col" aria-label="Navegación principal compacta">
+        <ul className="py-2 flex-1">
           {navItems.map((item, index) => (
             <li key={index}>
               <a
@@ -78,6 +105,26 @@ export function Sidebar({ isOpen = true, currentPage = 'home' }: SidebarProps) {
             </li>
           ))}
         </ul>
+
+        {/* Footer compacto para mobile */}
+        <footer className="border-t border-[#272727] bg-[#0f0f0f]">
+          <div className="flex flex-col gap-2 py-2 items-center">
+            <a
+              href="#"
+              className="text-[#aaa] hover:text-white transition-colors p-2"
+              title="Configuración"
+            >
+              <Settings className="w-6 h-6" />
+            </a>
+            <a
+              href="#"
+              className="text-[#aaa] hover:text-white transition-colors p-2"
+              title="Ayuda"
+            >
+              <HelpCircle className="w-6 h-6" />
+            </a>
+          </div>
+        </footer>
       </nav>
     </>
   );

@@ -89,12 +89,9 @@ export function VideoPlayerPage({ videoId, onVideoClick }: VideoPlayerPageProps)
 
           {/* Título del video */}
           <div className="mb-3">
-            <h1 className="text-white">
+            <h1 className="text-white font-bold text-xl">
               Tutorial Completo de React 2025 - Desde Cero hasta Avanzado
             </h1>
-            {normalizedVideoId && (
-              <p className="text-[#aaa] text-sm mt-1">ID del video: {normalizedVideoId}</p>
-            )}
           </div>
 
           {/* Info y botones de acción */}
@@ -199,7 +196,7 @@ export function VideoPlayerPage({ videoId, onVideoClick }: VideoPlayerPageProps)
                 </div>
               </div>
               <div className="flex-1 min-w-0">
-                <h3 className="text-white text-sm line-clamp-2 mb-1 group-hover:text-[#aaa] transition-colors">
+                <h3 className="text-white text-sm line-clamp-2 mb-1 font-bold group-hover:text-[#aaa] transition-colors">
                   {video.title}
                 </h3>
                 <p className="text-[#aaa] text-xs">{video.channel}</p>
